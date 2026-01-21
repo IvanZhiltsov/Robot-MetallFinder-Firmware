@@ -1,0 +1,29 @@
+void setup() {
+  // D IN AvtoMode_Pin, D IN StartButton_Pin, A/D IN MetallFinder_Pin, PWM OUT MotorDriver_Pin, UART GPS
+  setup_Pins();
+
+  // init class, setup settings, check all right, check connection
+  setup_Bluetooth();
+}
+
+
+void loop() {
+  if is_AvtoMode () {
+    continue_AvtoMode_Algorithm() {}
+    continue;
+  }
+
+  if check_AvtoMode_Pin () {
+
+    if can_Start_AvtoMode () {
+
+      if check_StartButton_Pin () {
+        break_Bluetooth();
+        start_AvtoMOde();
+        continue;
+      }
+    }
+  }
+
+  check_Bluetooth() {}
+}
