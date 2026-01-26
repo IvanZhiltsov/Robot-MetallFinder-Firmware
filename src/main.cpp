@@ -1,17 +1,32 @@
 #include <Arduino.h>
+#include <BluetoothManager.h>
+#include <GPS_Manager.h>
+#include <MapManager.h>
+#include <PinManager.h>
+#include <AvtoMode.h>
 
-const int LED = 2;
+bool is_AvtoMode = false;
+bool is_Search = false;
 
 void setup() {
-  Serial.begin(9600);
-  pinMode(LED, OUTPUT);  
+    setup_Pins();
+    setup_Bluetooth();
 }
 
-void loop() {  
-  delay(1000);  
-  Serial.println("1");
-  digitalWrite(LED, HIGH);  
-  delay(1000);
-  Serial.println("0");
-  digitalWrite(LED, LOW);  
-}  
+void loop() {
+    if (not is_Search) {
+        check_Bluetooth();
+    }
+
+    if (check_AvtoMode_Pin()) {
+        is_AvtoMode = true;
+
+        if (check_StartBotton() and is_Map() and is_robot_in_area()) {
+            is_Search = true;
+        }
+    }
+
+    if (is_Search) {
+        search();
+    }
+}
