@@ -1,3 +1,3 @@
 bool is_Map() {
-    return false;
+    return true;
 }

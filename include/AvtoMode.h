@@ -1,1 +1,1 @@
-void search() {};
+void search();

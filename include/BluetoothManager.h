@@ -1,3 +1,3 @@
-void setup_Bluetooth() {}
+void setup_Bluetooth();
 
-bool check_Bluetooth() {return false;}
+bool check_Bluetooth();

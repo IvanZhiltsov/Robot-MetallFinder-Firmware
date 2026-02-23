@@ -1,1 +1,1 @@
-bool is_Map() {return false;}
+bool is_Map();

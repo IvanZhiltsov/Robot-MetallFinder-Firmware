@@ -1,5 +1,5 @@
-void setup_Pins() {}
+void setup_Pins();
 
-bool check_AvtoMode_Pin() {return false;}
+bool check_AvtoMode_Pin();
 
-bool check_StartBotton() {return false;}
+bool check_StartBotton();
