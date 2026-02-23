@@ -1,29 +1,42 @@
-void setup() {
-  // D IN AvtoMode_Pin, D IN StartButton_Pin, A/D IN MetallFinder_Pin, PWM OUT MotorDriver_Pin, UART GPS
-  setup_Pins();
+#include <Arduino.h>
+#include <BluetoothManager.h>
+#include <GPS_Manager.h>
+#include <MapManager.h>
+#include <PinManager.h>
+#include <AvtoMode.h>
 
-  // init class, setup settings, check all right, check connection
-  setup_Bluetooth();
+
+bool is_AvtoMode = false;
+bool is_Search = false;
+
+
+void setup() {
+    Serial.begin(9600);
+    setup_Pins();
+    setup_Bluetooth();
 }
 
 
 void loop() {
-  if is_AvtoMode () {
-    continue_AvtoMode_Algorithm() {}
-    continue;
-  }
+    Serial.println("loop");
+    delay(500);
 
-  if check_AvtoMode_Pin () {
+    if (not is_Search) {
 
-    if can_Start_AvtoMode () {
+        if (not check_Bluetooth()) {
+            if (check_AvtoMode_Pin()) {
+                is_AvtoMode = true;
+            }
 
-      if check_StartButton_Pin () {
-        break_Bluetooth();
-        start_AvtoMOde();
-        continue;
-      }
+            if (is_AvtoMode) {
+                if (check_StartBotton() and is_Map() and is_robot_in_area()) {
+                    is_Search = true;
+                }
+            }
+        }
     }
-  }
 
-  check_Bluetooth() {}
+    else {
+        search();
+    }
 }

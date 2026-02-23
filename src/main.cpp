@@ -1,42 +1,34 @@
 #include <Arduino.h>
-#include <BluetoothManager.h>
-#include <GPS_Manager.h>
-#include <MapManager.h>
-#include <PinManager.h>
-#include <AvtoMode.h>
+#include <cJSON.h>
+#include <BluetoothSerial.h>
+#include <string>
 
-
-bool is_AvtoMode = false;
-bool is_Search = false;
-
+BluetoothSerial ESP_BT;
+std::string result;
+bool is_data = false;
 
 void setup() {
     Serial.begin(9600);
-    setup_Pins();
-    setup_Bluetooth();
+    ESP_BT.begin("ESP32 Bluetooth Test");
 }
 
-
 void loop() {
-    Serial.println("loop");
-    delay(500);
+    char curr_char;
 
-    if (not is_Search) {
-
-        if (not check_Bluetooth()) {
-            if (check_AvtoMode_Pin()) {
-                is_AvtoMode = true;
-            }
-
-            if (is_AvtoMode) {
-                if (check_StartBotton() and is_Map() and is_robot_in_area()) {
-                    is_Search = true;
-                }
-            }
+    if (is_data and ESP_BT.available()) {
+        curr_char = static_cast<char>(ESP_BT.read());
+        if (curr_char == '$') {
+            is_data = false;
+            cJSON *json_result = cJSON_Parse(result.c_str());
+            Serial.println(cJSON_GetObjectItem(json_result, "age")->valueint);
+            cJSON_Delete(json_result);
+            result.clear();
         }
+        else result += curr_char;
     }
 
-    else {
-        search();
+    else if (ESP_BT.available()) {
+            curr_char = static_cast<char>(ESP_BT.read());
+            if (curr_char == '$') is_data = true;
     }
 }
