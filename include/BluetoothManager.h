@@ -1,3 +1,5 @@
-void setup_Bluetooth();
+#include <Arduino.h>
+#include <BluetoothSerial.h>
 
-bool check_Bluetooth();
+void setup_bluetooth();
+bool check_bluetooth();

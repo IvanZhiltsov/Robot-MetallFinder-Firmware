@@ -1,0 +1,129 @@
+// #include <Arduino.h>
+// #include <cJSON.h>
+// #include <BluetoothSerial.h>
+// #include <EEPROM.h>
+// #include <string>
+
+// BluetoothSerial ESP_BT;
+// std::string result;
+// bool is_data = false;
+// const int eeprom_address = 0;
+
+// void eeprom_write(std::string data) {
+//     EEPROM.begin(512);
+//     EEPROM.write(eeprom_address, data.length());
+//     for (int i = 0; i < data.length(); i++) EEPROM.write(eeprom_address + 1 + i, data[i]);
+//     EEPROM.commit();
+//     EEPROM.end();
+// }
+
+// std::string eeprom_read() {
+//     std::string reader;
+//     EEPROM.begin(512);
+//     for (int i = 0; i < EEPROM.read(eeprom_address); i++) reader += EEPROM.read(eeprom_address + 1 + i);
+//     EEPROM.end();
+//     return reader;
+// }
+
+// void setup() {
+//     Serial.begin(9600);
+//     Serial.println();
+//     ESP_BT.begin("ESP32 Bluetooth Test");
+//     Serial.println("ESP32 Bluetooth Test - Setup");
+// }
+
+// void loop() {
+//     char curr_char;
+
+//     if (is_data and ESP_BT.available()) {
+//         curr_char = static_cast<char>(ESP_BT.read());
+//         if (curr_char == '$') {
+//             is_data = false;
+//             Serial.println(result.c_str());
+//             eeprom_write(result);
+//             result.clear();
+//         }
+//         else result += curr_char;
+//     }
+
+//     else if (ESP_BT.available()) {
+//         curr_char = static_cast<char>(ESP_BT.read());
+//         if (curr_char == '$') is_data = true;
+//         else if (curr_char == '#') Serial.println(eeprom_read().c_str());
+//     }
+
+//     delay(10);
+// }
+
+// void loop() {
+//     char curr_char;
+
+//     if (is_data and ESP_BT.available()) {
+//         curr_char = static_cast<char>(ESP_BT.read());
+//         if (curr_char == '$') {
+//             is_data = false;
+//             cJSON *json_result = cJSON_Parse(result.c_str());
+//             Serial.println(cJSON_GetObjectItem(json_result, "age")->valueint);
+//             eeprom_write(cJSON_GetStringValue(json_result));
+//             cJSON_Delete(json_result);
+//             result.clear();
+//         }
+//         else result += curr_char;
+//     }
+
+//     else if (ESP_BT.available()) {
+//             curr_char = static_cast<char>(ESP_BT.read());
+//             if (curr_char == '$') is_data = true;
+//             else if (curr_char == '#') Serial.println(eeprom_read().c_str());
+//     }
+// }
+
+
+
+
+
+
+
+// #include <BluetoothSerial.h>
+// #include <Arduino.h>
+// #include <BluetoothSerial.h>
+
+// class ESP_Bluetooth 
+// {
+// private:
+//     BluetoothSerial ESP_BT;
+
+// public:
+//     ESP_Bluetooth() {
+//         ESP_BT.begin("ESP32 Bluetooth Test");
+//         Serial.println("Setup ESP32 Bluetooth Test");
+//     }
+
+//     bool check() {return true;}
+// };
+
+// class ESP_Bluetooth 
+// {
+// private:
+//     BluetoothSerial ESP_BT;
+// public:
+//     ESP_Bluetooth();
+//     bool check();
+// };
+
+
+
+
+
+// #include <Arduino.h>
+// #include <BluetoothSerial.h>
+// #include <BluetoothManager.h>
+
+// ESP_Bluetooth::ESP_Bluetooth() {
+//     ESP_BT.begin("ESP32 Bluetooth Test");
+//     Serial.println("Setup ESP32 Bluetooth Test");
+// }
+
+// bool ESP_Bluetooth::check() {
+//     return true;
+// }
